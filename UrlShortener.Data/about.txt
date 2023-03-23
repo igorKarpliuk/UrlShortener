@@ -1,0 +1,3 @@
+This application creates short representations of Urls by adding to domain(https://localhost:44304/)
+encoded Id of current Url record in database. Also, added route for short Urls, which by received short Url
+finds in database a corresponding original Url and redirects to this Url.

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<UrlViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Urls</h1>
+
+@if(User.Identity.IsAuthenticated)
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="AddUrl">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <input name="Url" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Add Url" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        @ViewBag.Error
+    </div> 
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Url)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href = "@item.Url">@item.Url</a>
+                </td>
+                <td>
+                    <a href = "@item.ShortUrl">@item.ShortUrl</a>
+                </td>
+                @if(User.Identity.IsAuthenticated)
+                {
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    </td>  
+                    <td>
+                        @if (User.IsInRole("Admin") || item.UserId == ViewBag.CurrentUserId)
+                        {
+                                    <div class="row">
+                                            <form method="post" asp-action="Delete">
+                                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                                <input type="hidden" asp-for="@item.Id" name = "Id" />
+                                            </form>
+                                        </div>
+                        }
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

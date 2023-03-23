@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">About</h1>
+    @if(User.IsInRole("Admin"))
+    {
+        <form method="post" asp-action="About">
+            <div class="form-group">
+                <textarea name="AboutText">@ViewBag.Text</textarea>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    }
+    else
+    {
+    <p>@ViewBag.Text</p>
+    }
+</div>
