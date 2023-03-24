@@ -17,7 +17,6 @@ namespace UrlShortener.Web.StartupExtensions
         {
             services.AddControllersWithViews();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IUrlService, UrlService>();
             services.AddDbContext<MyDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
